@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    'drf_yasg',
+    "drf_yasg",
     "oqy.core.infrastructure.database",
     "oqy.core.infrastructure.api",
 ]
@@ -78,13 +78,13 @@ WSGI_APPLICATION = "oqy.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'oqy_db',
-        'USER': 'oqy_admin',
-        'PASSWORD': 'password',
-        'HOST': 'oqy_db',
-        'PORT': 5432,
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "oqy_db",
+        "USER": "oqy_admin",
+        "PASSWORD": "password",
+        "HOST": "oqy_db",
+        "PORT": 5432,
     }
 }
 

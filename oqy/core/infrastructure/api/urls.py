@@ -33,7 +33,6 @@ urlpatterns = [
     path("users/<int:user_id>/groups/", UserGroupsView.as_view(), name="user_groups"),
     path("users/<int:user_id>/", UpdateUserView.as_view(), name="update_user"),
     path("users/<int:user_id>/", DeleteUserView.as_view(), name="delete_user"),
-
     path("groups/", GroupCreateView.as_view(), name="group-create"),
     path("groups/<int:pk>/", GroupDetailView.as_view(), name="group-detail"),
     path("groups/<int:pk>/", GroupUpdateView.as_view(), name="group-update"),
@@ -44,7 +43,6 @@ urlpatterns = [
         ManagerRemoveView.as_view(),
         name="manager-remove",
     ),
-
     path("books/", BookCreateView.as_view(), name="create_book"),
     path("books/<int:book_id>/", BookDetailView.as_view(), name="book_detail"),
     path("books/<int:book_id>/", BookUpdateView.as_view(), name="update_book"),
@@ -69,7 +67,6 @@ urlpatterns = [
         BookQuestionDeleteView.as_view(),
         name="delete_book_question",
     ),
-
     path(
         "groups/<int:group_id>/forum/", ForumDetailView.as_view(), name="forum-detail"
     ),

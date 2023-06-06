@@ -7,14 +7,16 @@ class ModelUser(AbstractUser):
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
-    groups = models.ManyToManyField('auth.Group', related_name='auth_user')
-    user_permissions = models.ManyToManyField('auth.Permission', related_name='auth_user')
+    groups = models.ManyToManyField("auth.Group", related_name="auth_user")
+    user_permissions = models.ManyToManyField(
+        "auth.Permission", related_name="auth_user"
+    )
 
     def set_password(self, raw_password):
         self.password = make_password(raw_password)
 
     class Meta:
-        db_table = 'users'
+        db_table = "users"
 
 
 class ModelGroup(models.Model):
