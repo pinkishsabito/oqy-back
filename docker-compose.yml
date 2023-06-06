@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  oqy_db:
+    image: postgres:latest
+    container_name: 'oqy_db'
+    environment:
+      POSTGRES_USER: 'oqy_admin'
+      POSTGRES_PASSWORD: 'password'
+      POSTGRES_DB: 'oqy_db'
+    ports:
+      - '5432:5432'
+    volumes:
+      - '../oqy-postgresql:/var/lib/postgresql:cached'
+    networks:
+      - my-network
+
+  oqy_back:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python manage.py runserver 0.0.0.0:8080
+    container_name: 'oqy_back'
+    volumes:
+      - '.:/app'
+    ports:
+      - '8080:8080'
+    depends_on:
+      - oqy_db
+    networks:
+      - my-network
+    links:
+      - oqy_db
+
+#  frontend:
+#    image: node:latest
+#    container_name: oqy_front
+#    volumes:
+#      - './frontend:/app'
+#    working_dir: /app
+#    command: npm start
+#    ports:
+#      - "9090:9090"
+#    environment:
+#      - REACT_APP_BACKEND_URL=http://0.0.0.0:8080
+
+networks:
+  my-network:
+    driver: bridge
