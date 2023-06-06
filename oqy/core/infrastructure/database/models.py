@@ -14,7 +14,6 @@ class ModelUser(AbstractUser):
         self.password = make_password(raw_password)
 
     class Meta:
-        managed = True
         db_table = 'users'
 
 
@@ -25,7 +24,6 @@ class ModelGroup(models.Model):
     forum = models.OneToOneField("ModelForum", on_delete=models.CASCADE)
 
     class Meta:
-        managed = True
         db_table = "groups"
 
 
@@ -35,7 +33,6 @@ class ModelBook(models.Model):
     publication_date = models.DateField()
 
     class Meta:
-        managed = True
         db_table = "books"
 
 
@@ -44,7 +41,6 @@ class ModelBookQuestion(models.Model):
     book = models.ForeignKey(ModelBook, on_delete=models.CASCADE)
 
     class Meta:
-        managed = True
         db_table = "book_questions"
 
 
@@ -52,7 +48,6 @@ class ModelForum(models.Model):
     group = models.OneToOneField(ModelGroup, on_delete=models.CASCADE)
 
     class Meta:
-        managed = True
         db_table = "forums"
 
 
@@ -62,5 +57,4 @@ class ModelForumMessage(models.Model):
     message_text = models.TextField()
 
     class Meta:
-        managed = True
         db_table = "forum_messages"
