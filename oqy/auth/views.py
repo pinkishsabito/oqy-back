@@ -1,5 +1,7 @@
+from django.http import JsonResponse
 from rest_framework.views import APIView
 from oqy.auth.services import AuthenticationService
+from oqy.core.infrastructure.database.repositories import DjangoUserRepository
 
 
 class RegisterUserView(APIView):
