@@ -16,23 +16,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "corsheaders",
     "rest_framework",
-    "rest_framework_swagger",
-    "drf_yasg",
+    "drf_spectacular",
     "oqy.core.infrastructure.database",
     "oqy.core.infrastructure.api",
 ]
-
-SWAGGER_SETTINGS = {
-    "DEFAULT_INFO": "oqy.urls.swagger_info",
-    "BASE_URL": "localhost:8080/",
-    "BASE_PATH": "localhost:8080/",
-}
-
-REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.SimpleSchema',
-}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -42,7 +30,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
