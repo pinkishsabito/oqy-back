@@ -11,6 +11,7 @@ from oqy.core.infrastructure.api.book.views import (
     BookQuestionDeleteView,
 )
 
+
 urlpatterns = [
     path("book/", BookCreateView.as_view(), name="create_book"),
     path("book/<int:book_id>/", BookDetailView.as_view(), name="book_detail"),

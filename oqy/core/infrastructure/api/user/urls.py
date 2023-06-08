@@ -8,6 +8,7 @@ from oqy.core.infrastructure.api.user.views import (
     DeleteUserView,
 )
 
+
 urlpatterns = [
     path("users/", CreateUserView.as_view(), name="create_user"),
     path("users/<int:user_id>/", UserDetailsView.as_view(), name="user_details"),

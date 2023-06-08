@@ -14,6 +14,7 @@ from oqy.core.infrastructure.api.group.views import (
     ForumMessageDeleteView,
 )
 
+
 urlpatterns = [
     path("groups/", GroupCreateView.as_view(), name="group-create"),
     path("groups/<int:pk>/", GroupDetailView.as_view(), name="group-detail"),
