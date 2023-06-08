@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from rest_framework.views import APIView
+
 from oqy.auth.services import AuthenticationService
 from oqy.core.infrastructure.database.repositories import DjangoUserRepository
 
@@ -12,7 +13,7 @@ class RegisterUserView(APIView):
 
         user_repository = DjangoUserRepository()
         authentication_service = AuthenticationService(user_repository)
-        user = authentication_service.register_user(username, email, password)
+        authentication_service.register_user(username, email, password)
 
         return JsonResponse({"message": "User registered successfully"})
 

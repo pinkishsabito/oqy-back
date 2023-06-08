@@ -17,12 +17,17 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "corsheaders",
     "rest_framework",
     "drf_yasg",
     "oqy.core.infrastructure.database",
     "oqy.core.infrastructure.api",
 ]
 
+SWAGGER_SETTINGS = {
+    "DEFAULT_INFO": "oqy.urls.swagger_info",
+    "BASE_URL": "http://localhost:8080/api",
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -32,9 +37,12 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
-ROOT_URLCONF = "oqy.urls"
+CORS_ALLOW_ALL_ORIGINS = True
+
+ROOT_URLCONF = "oqy.yasg"
 
 TEMPLATES = [
     {

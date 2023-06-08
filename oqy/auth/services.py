@@ -1,7 +1,8 @@
+from typing import Optional
 from django.contrib.auth.hashers import make_password, check_password
+
 from oqy.core.domain.entities import User
 from oqy.core.domain.repositories import UserRepository
-from typing import Optional
 
 
 class AuthenticationService:

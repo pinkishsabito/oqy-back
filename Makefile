@@ -12,7 +12,7 @@ code:
 	mypy ./oqy --ignore-missing-imports
 
 	# lint check
-	pylint ./oqy --rcfile=.pylintrc --load-plugins pylint_django --django-settings-module=api.settings
+	pylint ./oqy --rcfile=.pylintrc --load-plugins pylint_django --django-settings-module=oqy.settings
 
 	# scan for errors
 	# flake8 ./oqy
