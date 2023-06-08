@@ -1,7 +1,7 @@
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent.parent
 
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "django-insecure-8+gmuwc_2rr^cpr55t-r&v4u0q9&lp6!gu$u@6ec&f5rd(&k#g"
 
@@ -28,6 +28,10 @@ SWAGGER_SETTINGS = {
     "DEFAULT_INFO": "oqy.urls.swagger_info",
     "BASE_URL": "localhost:8080/",
     "BASE_PATH": "localhost:8080/",
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.SimpleSchema',
 }
 
 MIDDLEWARE = [
