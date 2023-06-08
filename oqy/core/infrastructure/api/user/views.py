@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.views import View
+from django_ratelimit.decorators import ratelimit
 
 from oqy.core.domain.entities import User
 from oqy.core.infrastructure.database.repositories import (
@@ -8,6 +9,7 @@ from oqy.core.infrastructure.database.repositories import (
 
 
 class CreateUserView(View):
+    @ratelimit(key='ip', rate='2/m')
     def post(self, request) -> JsonResponse:
         username = request.POST.get("username")
         email = request.POST.get("email")
@@ -21,6 +23,7 @@ class CreateUserView(View):
 
 
 class UserDetailsView(View):
+    @ratelimit(key='ip', rate='2/m')
     def get(self, request, user_id) -> JsonResponse:
         user_repository = DjangoUserRepository()
         user = user_repository.get_user_by_id(user_id)
@@ -33,6 +36,7 @@ class UserDetailsView(View):
 
 
 class UpdateUserView(View):
+    @ratelimit(key='ip', rate='2/m')
     def put(self, request, user_id) -> JsonResponse:
         user_repository = DjangoUserRepository()
         user = user_repository.get_user_by_id(user_id)
@@ -52,6 +56,7 @@ class UpdateUserView(View):
 
 
 class DeleteUserView(View):
+    @ratelimit(key='ip', rate='2/m')
     def delete(self, request, user_id) -> JsonResponse:
         user_repository = DjangoUserRepository()
         user = user_repository.get_user_by_id(user_id)
@@ -64,6 +69,7 @@ class DeleteUserView(View):
 
 
 class UserGroupsView(View):
+    @ratelimit(key='ip', rate='2/m')
     def get(self, request, user_id) -> JsonResponse:
         user_repository = DjangoUserRepository()
 

@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.views import View
+from django_ratelimit.decorators import ratelimit
 
 from oqy.core.domain.entities import Group, ForumMessage
 from oqy.core.domain.repositories import (
@@ -15,6 +16,7 @@ from oqy.core.infrastructure.database.repositories import (
 
 
 class GroupCreateView(View):
+    @ratelimit(key='ip', rate='5/s')
     def post(self, request) -> JsonResponse:
         name = request.POST.get("name")
         group_repository: GroupRepository = DjangoGroupRepository()
@@ -23,6 +25,7 @@ class GroupCreateView(View):
 
 
 class GroupDetailView(View):
+    @ratelimit(key='ip', rate='5/s')
     def get(self, request, pk) -> JsonResponse:
         group_repository: GroupRepository = DjangoGroupRepository()
         group = group_repository.get_group(pk)
@@ -32,6 +35,7 @@ class GroupDetailView(View):
 
 
 class GroupUpdateView(View):
+    @ratelimit(key='ip', rate='5/s')
     def put(self, request, pk) -> JsonResponse:
         name = request.PUT.get("name")
         group_repository: GroupRepository = DjangoGroupRepository()
@@ -43,6 +47,7 @@ class GroupUpdateView(View):
 
 
 class GroupDeleteView(View):
+    @ratelimit(key='ip', rate='5/s')
     def delete(self, request, pk) -> JsonResponse:
         group_repository: GroupRepository = DjangoGroupRepository()
         group = group_repository.get_group(pk)
@@ -53,6 +58,7 @@ class GroupDeleteView(View):
 
 
 class ManagerAddView(View):
+    @ratelimit(key='ip', rate='5/s')
     def post(self, request, pk) -> JsonResponse:
         group_repository: GroupRepository = DjangoGroupRepository()
         user_repository: UserRepository = DjangoUserRepository()
@@ -71,6 +77,7 @@ class ManagerAddView(View):
 
 
 class ManagerRemoveView(View):
+    @ratelimit(key='ip', rate='5/s')
     def delete(self, request, group_pk, manager_pk) -> JsonResponse:
         group_repository: GroupRepository = DjangoGroupRepository()
         user_repository: UserRepository = DjangoUserRepository()
@@ -88,6 +95,7 @@ class ManagerRemoveView(View):
 
 
 class ForumDetailView(View):
+    @ratelimit(key='ip', rate='5/s')
     def get(self, request, group_id) -> JsonResponse:
         group_repository: GroupRepository = DjangoGroupRepository()
         forum_repository: ForumRepository = DjangoForumRepository()
@@ -104,6 +112,7 @@ class ForumDetailView(View):
 
 
 class ForumMessageCreateView(View):
+    @ratelimit(key='ip', rate='5/s')
     def post(self, request, group_id) -> JsonResponse:
         user_repository: UserRepository = DjangoUserRepository()
         group_repository: GroupRepository = DjangoGroupRepository()
@@ -129,6 +138,7 @@ class ForumMessageCreateView(View):
 
 
 class ForumMessageDetailView(View):
+    @ratelimit(key='ip', rate='5/s')
     def get(self, request, group_id, message_id) -> JsonResponse:
         forum_repository: ForumRepository = DjangoForumRepository()
 
@@ -145,6 +155,7 @@ class ForumMessageDetailView(View):
 
 
 class ForumMessageUpdateView(View):
+    @ratelimit(key='ip', rate='5/s')
     def put(self, request, group_id, message_id) -> JsonResponse:
         message_text = request.POST.get("message_text")
 
@@ -167,6 +178,7 @@ class ForumMessageUpdateView(View):
 
 
 class ForumMessageDeleteView(View):
+    @ratelimit(key='ip', rate='5/s')
     def delete(self, request, group_id, message_id) -> JsonResponse:
         forum_repository: ForumRepository = DjangoForumRepository()
 

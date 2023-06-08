@@ -4,6 +4,7 @@ from random import randint
 
 from django.http import JsonResponse
 from django.views import View
+from django_ratelimit.decorators import ratelimit
 from rest_framework import status
 from rest_framework.views import APIView
 
@@ -25,6 +26,7 @@ from oqy.core.infrastructure.database.repositories import (
 
 
 class BookCreateView(View):
+    @ratelimit(key='ip', rate='5/s')
     def post(self, request) -> JsonResponse:
         title = request.POST.get("title")
         author = request.POST.get("author")
@@ -43,6 +45,7 @@ class BookCreateView(View):
 
 
 class BookDetailView(View):
+    @ratelimit(key='ip', rate='5/s')
     def get(self, request, book_id) -> JsonResponse:
         book_repository: BookRepository = DjangoBookRepository()
         book = book_repository.get_book(book_id)
@@ -54,6 +57,7 @@ class BookDetailView(View):
 
 
 class BookUpdateView(View):
+    @ratelimit(key='ip', rate='5/s')
     def put(self, request, book_id) -> JsonResponse:
         title = request.POST.get("title")
         author = request.POST.get("author")
@@ -71,6 +75,7 @@ class BookUpdateView(View):
 
 
 class BookDeleteView(View):
+    @ratelimit(key='ip', rate='5/s')
     def delete(self, request, book_id) -> JsonResponse:
         book_repository: BookRepository = DjangoBookRepository()
         book = book_repository.get_book(book_id)
@@ -82,6 +87,7 @@ class BookDeleteView(View):
 
 
 class BookQuestionCreateView(View):
+    @ratelimit(key='ip', rate='5/s')
     def post(self, request, book_id) -> JsonResponse:
         question_text = request.POST.get("question_text")
 
@@ -99,6 +105,7 @@ class BookQuestionCreateView(View):
 
 
 class BookQuestionDetailView(View):
+    @ratelimit(key='ip', rate='5/s')
     def get(self, request, book_id, question_id) -> JsonResponse:
         book_question_repository: BookQuestionRepository = (
             DjangoBookQuestionRepository()
@@ -112,6 +119,7 @@ class BookQuestionDetailView(View):
 
 
 class BookQuestionUpdateView(View):
+    @ratelimit(key='ip', rate='5/s')
     def put(self, request, book_id, question_id) -> JsonResponse:
         question_text = request.POST.get("question_text")
 
@@ -131,6 +139,7 @@ class BookQuestionUpdateView(View):
 
 
 class BookQuestionDeleteView(View):
+    @ratelimit(key='ip', rate='5/s')
     def delete(self, request, book_id, question_id) -> JsonResponse:
         book_question_repository: BookQuestionRepository = (
             DjangoBookQuestionRepository()
@@ -144,6 +153,7 @@ class BookQuestionDeleteView(View):
 
 
 class BookUploadView(APIView):
+    @ratelimit(key='ip', rate='5/s')
     def post(self, request):
         serializer = BookSerializer(data=request.data)
         if serializer.is_valid():

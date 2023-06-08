@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework_swagger",
+    "ratelimit",
     "oqy.core.infrastructure.database",
     "oqy.core.infrastructure.api",
 ]
@@ -91,3 +92,11 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}
+
+RATELIMIT_HANDLER = 'myapp.views.custom_rate_limit_handler'
