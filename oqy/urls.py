@@ -7,7 +7,7 @@ router = routers.DefaultRouter()
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('api/', include(router.urls)),
+    path("api/", include(router.urls)),
     path("api/", include("oqy.core.infrastructure.api.urls")),
     path("auth/", include("oqy.auth.urls")),
 ]
