@@ -19,10 +19,15 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "drf_yasg",
-    #"oauth2_provider",
     "oqy.core.infrastructure.database",
     "oqy.core.infrastructure.api",
 ]
+
+
+AUTHENTICATION_BACKENDS = [
+    "core.auth.backends.CustomAuthBackend",
+]
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

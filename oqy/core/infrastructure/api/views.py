@@ -58,7 +58,9 @@ class UpdateUserView(View):
         updated_username = request.POST.get("username")
         updated_email = request.POST.get("email")
 
-        user_repository.update_user(User(user.id, updated_username, updated_email))
+        user_repository.update_user(
+            User(user.id, updated_username, updated_email, user.password)
+        )
         return JsonResponse(
             {"id": user.id, "username": user.username, "email": user.email}
         )

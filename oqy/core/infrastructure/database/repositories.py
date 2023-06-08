@@ -30,26 +30,26 @@ class DjangoUserRepository(UserRepository):
         user = ModelUser.objects.create(
             username=username, email=email, password=password
         )
-        return User(user.id, user.username, user.email)
+        return User(user.id, user.username, user.email, user.password)
 
     def get_user_by_id(self, user_id: int) -> Optional[User]:
         try:
             user = ModelUser.objects.get(id=user_id)
-            return User(user.id, user.username, user.email)
+            return User(user.id, user.username, user.email, user.password)
         except ModelUser.DoesNotExist:
             return None
 
     def get_user_by_username(self, username: str) -> Optional[User]:
         try:
             user = ModelUser.objects.get(username=username)
-            return User(user.id, user.username, user.email)
+            return User(user.id, user.username, user.email, user.password)
         except ModelUser.DoesNotExist:
             return None
 
     def get_user_by_email(self, email: str) -> Optional[User]:
         try:
             user = ModelUser.objects.get(email=email)
-            return User(user.id, user.username, user.email)
+            return User(user.id, user.username, user.email, user.password)
         except ModelUser.DoesNotExist:
             return None
 
@@ -66,6 +66,7 @@ class DjangoUserRepository(UserRepository):
         user_model = ModelUser.objects.get(id=user.id)
         user_model.username = user.username
         user_model.email = user.email
+        user_model.password = user.password
         user_model.save()
 
 
