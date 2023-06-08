@@ -1,6 +1,6 @@
 from django.contrib.auth.hashers import make_password, check_password
-from core.domain.entities import User
-from core.domain.repositories import UserRepository
+from oqy.core.domain.entities import User
+from oqy.core.domain.repositories import UserRepository
 from typing import Optional
 
 

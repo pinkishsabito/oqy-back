@@ -1,6 +1,5 @@
 from rest_framework.views import APIView
-from rest_framework.response import Response
-from oqy.core.auth.services import AuthenticationService
+from oqy.core.application.auth.services import AuthenticationService
 
 
 class RegisterUserView(APIView):
@@ -9,7 +8,8 @@ class RegisterUserView(APIView):
         email = request.data.get('email')
         password = request.data.get('password')
 
-        authentication_service = AuthenticationService()
+        user_repository = DjangoUserRepository()
+        authentication_service = AuthenticationService(user_repository)
         user = authentication_service.register_user(username, email, password)
 
         return JsonResponse({'message': 'User registered successfully'})
@@ -20,7 +20,8 @@ class LoginView(APIView):
         username = request.data.get('username')
         password = request.data.get('password')
 
-        authentication_service = AuthenticationService()
+        user_repository = DjangoUserRepository()
+        authentication_service = AuthenticationService(user_repository)
         user = authentication_service.authorize_user(username, password)
 
         if user:
