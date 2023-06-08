@@ -1,5 +1,11 @@
+import re
+from collections import Counter
+from random import randint
+
 from django.http import JsonResponse
 from django.views import View
+from rest_framework import status
+from rest_framework.views import APIView
 
 from oqy.core.domain.entities import Book, BookQuestion
 from oqy.core.domain.repositories import (
@@ -10,6 +16,7 @@ from oqy.core.infrastructure.api.book.serializers import (
     BookSerializer,
     BookQuestionSerializer,
 )
+from oqy.core.infrastructure.database.models import ModelWordOrder
 from oqy.core.infrastructure.database.repositories import (
     DjangoGroupRepository,
     DjangoBookRepository,
@@ -134,3 +141,49 @@ class BookQuestionDeleteView(View):
 
         book_question_repository.delete_question(book_question)
         return JsonResponse({"message": "Question deleted successfully"}, status=204)
+
+
+class BookUploadView(APIView):
+    def post(self, request):
+        serializer = BookSerializer(data=request.data)
+        if serializer.is_valid():
+            book = serializer.save()
+
+            common_words = self._extract_common_words(book.content)
+
+            word_order = self._generate_word_order(book.content, common_words)
+
+            for _, word in enumerate(word_order, start=1):
+                if word in common_words:
+                    order = common_words.index(word) + 1
+                else:
+                    order = randint(2001, 5000)
+
+                ModelWordOrder.objects.create(book=book, word=word, order=order)
+
+            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @staticmethod
+    def _extract_common_words(content):
+        words = re.findall(r"\b\w+\b", content)
+
+        filtered_words = [word.lower() for word in words if len(word) > 6]
+        word_counter = Counter(filtered_words)
+
+        common_words = [word for word, _ in word_counter.most_common(2000)]
+
+        return common_words
+
+    @staticmethod
+    def _generate_word_order(content, common_words):
+        words = re.findall(r"\b\w+\b", content)
+
+        filtered_words = [word.lower() for word in words if len(word) > 6]
+
+        word_order = []
+        for _, word in enumerate(filtered_words):
+            if word in common_words:
+                word_order.append(word)
+
+        return word_order

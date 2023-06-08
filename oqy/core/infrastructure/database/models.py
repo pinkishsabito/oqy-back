@@ -60,3 +60,9 @@ class ModelForumMessage(models.Model):
 
     class Meta:
         db_table = "forum_messages"
+
+
+class ModelWordOrder(models.Model):
+    book = models.ForeignKey(ModelBook, on_delete=models.CASCADE)
+    word = models.CharField(max_length=255)
+    order = models.PositiveIntegerField()

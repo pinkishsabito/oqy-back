@@ -17,7 +17,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "drf_spectacular",
+    "rest_framework_swagger",
     "oqy.core.infrastructure.database",
     "oqy.core.infrastructure.api",
 ]
