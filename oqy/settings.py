@@ -9,7 +9,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -19,6 +18,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",
     "rest_framework",
+    "rest_framework_swagger",
     "drf_yasg",
     "oqy.core.infrastructure.database",
     "oqy.core.infrastructure.api",
@@ -26,7 +26,8 @@ INSTALLED_APPS = [
 
 SWAGGER_SETTINGS = {
     "DEFAULT_INFO": "oqy.urls.swagger_info",
-    "BASE_URL": "http://localhost:8080/api",
+    "BASE_URL": "localhost:8080/",
+    "BASE_PATH": "localhost:8080/",
 }
 
 MIDDLEWARE = [
@@ -37,12 +38,10 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'corsheaders.middleware.CorsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
-
-ROOT_URLCONF = "oqy.yasg"
 
 TEMPLATES = [
     {
@@ -62,7 +61,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "oqy.wsgi.application"
 
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -73,7 +71,6 @@ DATABASES = {
         "PORT": 5432,
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -90,7 +87,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -98,7 +94,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
 
 STATIC_URL = "static/"
 
