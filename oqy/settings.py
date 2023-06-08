@@ -24,11 +24,6 @@ INSTALLED_APPS = [
 ]
 
 
-AUTHENTICATION_BACKENDS = [
-    "core.auth.backends.CustomAuthBackend",
-]
-
-
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",

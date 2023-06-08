@@ -1,13 +1,29 @@
-from django.http import JsonResponse
-from oqy.core.auth.services import authorize_user
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from oqy.core.auth.services import AuthenticationService
 
 
-def login(request):
-    if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
+class RegisterUserView(APIView):
+    def post(self, request) -> JsonResponse:
+        username = request.data.get('username')
+        email = request.data.get('email')
+        password = request.data.get('password')
 
-        if authorize_user(username, password):
-            return JsonResponse({"message": "Login successful"})
+        authentication_service = AuthenticationService()
+        user = authentication_service.register_user(username, email, password)
 
-        return JsonResponse({"message": "Invalid credentials"}, status=401)
+        return JsonResponse({'message': 'User registered successfully'})
+
+
+class LoginView(APIView):
+    def post(self, request) -> JsonResponse:
+        username = request.data.get('username')
+        password = request.data.get('password')
+
+        authentication_service = AuthenticationService()
+        user = authentication_service.authorize_user(username, password)
+
+        if user:
+            return JsonResponse({'message': 'Login successful'})
+
+        return JsonResponse({'message': 'Invalid credentials'}, status=401)
