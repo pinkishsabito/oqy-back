@@ -35,7 +35,7 @@ class ModelBook(models.Model):
     publication_date = models.DateField()
 
     class Meta:
-        db_table = "books"
+        db_table = "book"
 
 
 class ModelBookQuestion(models.Model):
